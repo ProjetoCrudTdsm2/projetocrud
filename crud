@@ -1,0 +1,105 @@
+import mysql.connector
+conexao=mysql.connector.connect( host='localhost',
+user='user',
+password='12345',
+database='hospital')
+cursor=conexao.cursor()
+import time
+def hospital():
+    print("|__________SEJA BEM VINDO A CLINICA__________|")
+    time.sleep(1)
+    print("\nCARREGANDO SISTEMA ...")
+    time.sleep(1)
+    while True:
+        at=int(input("""
+                     
+
+______________________________________________
+|            MENU DE ATENDIMENTOS            |
+|                                            |
+|       [0] - ENCERRAR SISTEMA               |
+|       [1] - AGENDAMENTO                    |
+|       [2] - CADASTRO DE PACIENTES          |
+|       [3] - CADASTRO DE FUNCIONÁRIOS       |
+|____________________________________________|                     
+                    
+DIGITE A OPÇÃO DESEJADA: """))
+        if at==0:
+            print("ENCERRANDO SISTEMA...")
+            break
+        elif at==1:
+            agendamento()
+        elif at==2:
+            cad_pac()
+        elif at==3:
+            cad_fun()
+        else:
+            print("opção errada")
+def agendamento():
+        time.sleep(1)
+        while True:
+             agd = int(input("""
+_____________________________________                             
+|        MENU DE AGENDAMENTO        |
+|                                   |
+|   [0] - VOLTAR AO MENU INICIAL    |
+|   [1] - MARCAÇÃO DE EXAMES        |
+|   [2] - EXAMES MARCADOS           |
+|   [3] - MARCAÇÃO DE CONSULTAS     |
+|   [4] - CONSULTAS MARCADAS        |
+|___________________________________|
+
+DIGITE A OPÇÃO DESEJADA: """))       
+             if agd==0:
+                  print("VOLTANDO AO MENU INICIAL!")
+                  time.sleep(1)
+                  break
+             if agd ==1:
+                  while True:
+                       print("Antes de fazer o agendamento dos exames devem ser inseridas algumas informações.")
+                       plano = int(input("O paciente possui plano de saúde? Digite 1 para sim e 2 para não e 0 para cancelar: "))
+                       
+                       if plano == 1:
+                            plano_sd = input("Qual o plano ele possui? ")
+                            time.sleep(1)
+                            print("Continuar com agendamento ...")
+                            time.sleep(1)
+                            nome_exame = input("Qual o exame: ")
+                            valor = 'R$---,--'
+                            cod_exame = int(input("Codigo exame: "))
+                            nome_pac = input("Qual o nome do paciente: ")
+                            cod_consulta = input("Qual o Codigo da consulta? ")
+                            plano_saude = plano_sd
+                            nome_exame = cursor.execute("insert into exame values(%s,%s,%s,%s,%s,%s)",(nome_exame,
+                            valor,cod_exame,nome_pac,cod_consulta,plano_saude))
+                            conexao.commit()
+                            print("SALVANDO INFORMAÇÕES...")
+                            time.sleep(1)
+                            print("\nAGUARDE ALGUNS INSTANTES...")
+                            time.sleep(2)
+                            print("AGENDAMENTO CONCLUIDO!!")
+                            time.sleep(1)  
+                       elif plano==2:
+                            print("Continuar com Agendamento")
+                            time.sleep(1)
+                            nome_exame = input("Qual o exame: ")
+                            valor = input("Qual o valor pago do exame: ")
+                            cod_exame = int(input("Codigo exame: "))
+                            nome_pac = input("Qual o nome do paciente: ")
+                            cod_consulta = input("Qual o Codigo da consulta? ")
+                            plano_saude = 'NÃO'
+                            nome_exame = cursor.execute("insert into exame values(%s,%s,%s,%s,%s,%s)",(nome_exame,
+                            valor,cod_exame,nome_pac,cod_consulta,plano_saude))
+                            conexao.commit()
+                            print("SALVANDO INFORMAÇÕES...")
+                            time.sleep(1)
+                            print("AGUARDE ALGUNS INSTANTES...")
+                            time.sleep(2)
+                            print("AGENDAMENTO CONCLUIDO!!")
+                            time.sleep(1)
+                       elif plano == 0:
+                            print("Voltando ao menu agendamento...")
+                            time.sleep(1)
+                            break
+                       else:
+                            print("Opção invalida")
