@@ -54,7 +54,7 @@ DIGITE A OPÇÃO DESEJADA: """))
                   print("VOLTANDO AO MENU INICIAL!")
                   time.sleep(1)
                   break
-             if agd ==1:
+             elif agd ==1:
                   while True:
                        print("Antes de fazer o agendamento dos exames devem ser inseridas algumas informações.")
                        plano = int(input("O paciente possui plano de saúde? Digite 1 para sim e 2 para não e 0 para cancelar: "))
@@ -103,3 +103,145 @@ DIGITE A OPÇÃO DESEJADA: """))
                             break
                        else:
                             print("Opção invalida")
+             elif agd == 2:
+                  exame = cursor.execute("select * from exame;")
+                  resultados = cursor.fetchall()
+                  for linha in resultados:
+                       print(*linha, sep="-")
+                    
+                       
+             elif agd==3:
+                while True:
+                                                                                                                          
+                                    
+                     con= int(input("""
+_________________________                           
+|COD|     CONSULTAS     |
+|001|  CARDIOLOGISTA    |
+|002|  CLINICO GERAL    |
+|003|    ORTOPEDIA      |
+|004|   OFTALMOLOGIA    |
+|005|    NEUROLOGIA     |
+|___|___________________|      Deseja marcar uma consulta? Digite 0 para cancelar e 1 para continuar."""))
+                     
+                     if con == 0:
+                          print("Voltando ao menu inicial")
+                          break
+                     if con == 1:
+                          
+                              print("Aguarde alguns instantes...")
+                              time.sleep(1)
+                              med_resp= input("---nome do medico---")
+                              esp= input("CARDIOLOGISTA")
+                              cod_consult =int(input("Qual o codigo da consulta: "))
+                              paciente = input("Qual o nome no paciente: ")
+                              pront= int(input("Qual o prontuario: "))
+                              crm= int(input("9808374"))
+                              med_resp = cursor.execute("insert into exame values(%s,%s,%s,%s,%s,%s)",(med_resp, esp,
+                              cod_consult, paciente, pront, crm))
+                              conexao.commit()
+                     if con == 2:
+                              print("Aguarde alguns instantes...")
+                              time.sleep(1)
+                              med_resp= input("---nome do medico---")
+                              esp= input("CLINICO GERAL")
+                              cod_consult =int(input("Qual o codigo da consulta: "))
+                              paciente = input("Qual o nome no paciente: ")
+                              pront= int(input("Qual o prontuario: "))
+                              crm= int(input("7287490"))
+                              med_resp = cursor.execute("insert into exame values(%s,%s,%s,%s,%s,%s)",(med_resp, esp,
+                              cod_consult, paciente, pront, crm))
+                              conexao.commit()
+                     if con == 3:
+                              print("Aguarde alguns instantes...")
+                              time.sleep(1)
+                              med_resp= input("---nome do medico---")
+                              esp= input("ORTOPEDISTA")
+                              cod_consult =int(input("Qual o codigo da consulta: "))
+                              paciente = input("Qual o nome no paciente: ")
+                              pront = int(input("Qual o prontuario: "))
+                              crm = int(input("22950975"))
+                              med_resp = cursor.execute("insert into exame values(%s,%s,%s,%s,%s,%s)",(med_resp, esp,
+                              cod_consult, paciente, pront, crm))
+                              conexao.commit()
+                     if con == 4:
+                              print("Aguarde alguns instantes...")
+                              time.sleep(1)
+                              med_resp= input("---nome do medico---")
+                              esp= input("OFTALMOLOGISTA")
+                              cod_consult =int(input("Qual o codigo da consulta: "))
+                              paciente = input("Qual o nome no paciente: ")
+                              pront = int(input("Qual o prontuario: "))
+                              crm = int(input("3426753"))
+                              med_resp = cursor.execute("insert into exame values(%s,%s,%s,%s,%s,%s)",(med_resp, esp,
+                              cod_consult, paciente, pront, crm))
+                              conexao.commit()
+                     if con == 5:
+                              print("Aguarde alguns instantes...")
+                              time.sleep(1)
+                              med_resp= input("Qual o nome do médico? ")
+                              esp= input("NEUROLOGISTA")
+                              cod_consult =int(input("Qual o codigo da consulta: "))
+                              paciente = input("Qual o nome no paciente: ")
+                              pront = int(input("Qual o prontuario: "))
+                              crm = int(input("Qual o crm do médico? "))
+                              med_resp = cursor.execute("insert into exame values(%s,%s,%s,%s,%s,%s)",(med_resp, esp,
+                              cod_consult, paciente, pront, crm))
+                              conexao.commit()
+             elif agd == 4:
+               while True:
+                    
+                alt = int(input("""
+_______________________________________
+|          MENU DE CONSULTAS          |
+|                                     |
+|  [1] - VERIFICAR CONSULTAS MARCADAS |
+|  [2] - ALTERAR DADOS DE CONSULTAS   |
+|  [3] - APAGAR CONSULTA              |  
+|  [0] - VOLTAR AO MENU ANTERIOR      |
+|_____________________________________|                              
+                                                                                                     
+ESCOLHA A OPÇÃO DESEJADA: """))
+                if alt == 0:
+                  print("Voltando ao Menu anterior")
+                  break
+             
+                elif alt == 1:
+                 consulta = cursor.execute("select * from consulta;")
+                 result = cursor.fetchall()
+                 for linha in result:
+                    print(*linha, sep="-")
+                elif alt == 2:
+                     while True: 
+                          comand_alt = int(input("""
+Qual informação vai ser alterada: 
+1- NOME DO MEDICO
+2- PACIENTE
+3- PRONTUARIO
+4- CRM
+0- VOLTAR AO MENU
+QUAL A OPÇÃO DESEJADA: """))
+                          if comand_alt== 0:
+                               print("VOLTANDO AO MENU ANTERIOR")
+                               break
+                          elif comand_alt == 1:
+                               nome_med_alt = input("Qual o nome que vai substituir: ")
+                               crm_med = int(input("Qual o crm do medico: "))
+                               comando = cursor.execute(f'update consulta set nome_med = {nome_med_alt} where crm = {crm_med}')
+                               conexao.commit()
+                          elif comand_alt == 2:
+                               paciente_alt = input("Qual o nome que vai substituir? ")
+                               pront_alt = int(input("Qual o prontuario do paciente: "))
+                               comando = cursor.execute(f'update consulta set paciente = {paciente_alt} where prontuario = {pront_alt}')
+                               conexao.commit()
+                          elif comand_alt == 3:
+                               pront_alt = int(input("Prontuario a ser corrigido: "))
+                               paciente_alt = input("Qual o nome do paciente: ")
+                               comando = cursor.execute(f'update consulta set prontuario = {pront_alt} where paciente = {paciente_alt}')
+                               conexao.commit()
+                          if comand_alt == 4:
+                               crm_med = int(input("Qual o crm do medico a ser corrigido: "))
+                               nome_med_alt = input("Qual o nome do medico: ")
+                               comando = cursor.execute(f'update consulta set nome_med = {nome_med_alt} where crm = {crm_med}')
+                               conexao.commit()                               
+hospital()
